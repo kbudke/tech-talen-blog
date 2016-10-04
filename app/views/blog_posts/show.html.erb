@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<p class="bioRhyme">
+  <strong>Title:</strong>
+  <%= @blog_post.title %>
+</p>
+
+<p class="bioRhyme">
+  <strong>User:</strong>
+  <%= @blog_post.user.username %>
+</p>
+
+<p class="bioRhyme">
+  <strong>Blog entry:</strong>
+  <%= @blog_post.blog_entry %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_blog_post_path(@blog_post) %> |
+<%= link_to 'Back', blog_posts_path %>
+
+<div>
+	<h4 class="bioRhyme">Comments</h4>
+	<%= form_tag(create_comment_path) do %>
+	<%=text_area_tag :comment_entry, nil, placeholder: "And your reply is..."%>
+	<br />
+	<%= hidden_field_tag :blog_post_id,  @blog_post.id %>
+	<%= hidden_field_tag :user_id,  current_user.id %>
+	<%= submit_tag "Submit", class: "btn btn-primary" %>
+<% end %>
+
+<% @blog_post.comments.each do |comment| %>
+
+    <p class="bioRhyme"><%= comment.user.username %> said ... <%= comment.comment_entry %></p>
+<% end %>
+
+</div>
